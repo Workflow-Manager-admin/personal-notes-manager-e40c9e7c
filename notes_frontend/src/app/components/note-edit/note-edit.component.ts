@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotesSupabaseService } from '../../services/notes-supabase.service';
-import { CommonModule } from '@angular/common';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-note-edit',
@@ -22,7 +22,8 @@ export class NoteEditComponent implements OnInit {
     fb: FormBuilder,
     route: ActivatedRoute,
     notesService: NotesSupabaseService,
-    router: Router
+    router: Router,
+    @Inject(PLATFORM_ID) platformId: Object
   ) {
     this.noteForm = fb.group({
       title: ['', Validators.required],
@@ -31,12 +32,17 @@ export class NoteEditComponent implements OnInit {
     this.route = route;
     this.notesService = notesService;
     this.router = router;
+    this.platformId = platformId;
   }
   private route: ActivatedRoute;
   private notesService: NotesSupabaseService;
   private router: Router;
+  private platformId: Object;
 
   async ngOnInit() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
     this.noteId = this.route.snapshot.paramMap.get('id');
     if (this.noteId) {
       this.isEdit = true;

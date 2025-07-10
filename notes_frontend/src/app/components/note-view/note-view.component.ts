@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { NotesSupabaseService, Note } from '../../services/notes-supabase.service';
 
 @Component({
@@ -14,21 +14,27 @@ export class NoteViewComponent implements OnInit {
   note: Note | null = null;
   loading = false;
 
+  private route: ActivatedRoute;
+  private notesService: NotesSupabaseService;
+  private router: Router;
+  private platformId: Object;
+
   constructor(
     route: ActivatedRoute,
     notesService: NotesSupabaseService,
-    router: Router
+    router: Router,
+    @Inject(PLATFORM_ID) platformId: Object
   ) {
     this.route = route;
     this.notesService = notesService;
     this.router = router;
+    this.platformId = platformId;
   }
-  private route: ActivatedRoute;
-  private notesService: NotesSupabaseService;
-  private router: Router;
 
   ngOnInit(): void {
-    this.loadNote();
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadNote();
+    }
   }
 
   async loadNote() {
@@ -62,7 +68,9 @@ export class NoteViewComponent implements OnInit {
         // @ts-ignore
         result = browserWin.confirm(message);
       }
-    } catch {}
+    } catch {
+      // Just return default (true) if window not available or confirm fails
+    }
     return result;
   }
 }

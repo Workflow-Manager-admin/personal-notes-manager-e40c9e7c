@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { NotesSupabaseService, Note } from '../../services/notes-supabase.service';
 
 @Component({
@@ -16,16 +16,21 @@ export class NotesListComponent implements OnInit {
 
   constructor(
     notesService: NotesSupabaseService,
-    router: Router
+    router: Router,
+    @Inject(PLATFORM_ID) platformId: Object
   ) {
     this.notesService = notesService;
     this.router = router;
+    this.platformId = platformId;
   }
   private notesService: NotesSupabaseService;
   private router: Router;
+  private platformId: Object;
 
   ngOnInit(): void {
-    this.load();
+    if (isPlatformBrowser(this.platformId)) {
+      this.load();
+    }
   }
 
   async load() {
