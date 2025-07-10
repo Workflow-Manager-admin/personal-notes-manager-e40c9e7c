@@ -2,7 +2,7 @@
   <aside class="sidebar">
     <div class="sidebar-header">
       <span class="brand">Notes</span>
-      <button class="new-note-btn" routerLink="/notes/new">+ New</button>
+      <button class="new-note-btn" [routerLink]="['/notes/new']" routerLinkActive="active">+ New</button>
     </div>
     <nav>
       <app-notes-list class="notes-list"></app-notes-list>
