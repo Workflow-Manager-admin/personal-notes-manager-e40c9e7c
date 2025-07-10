@@ -1,0 +1,14 @@
+<ul class="notes-ul">
+  <li *ngIf="loading" class="notes-loading">Loading...</li>
+  <li *ngFor="let note of notes; trackBy: trackByNoteId"
+      (click)="onSelect(note)"
+      class="notes-li"
+      [title]="note.title"
+      tabindex="0">
+    <div class="note-title">{{ note.title }}</div>
+    <div class="note-date" *ngIf="note.updated_at">
+      {{ note.updated_at | date:'shortDate' }}
+    </div>
+  </li>
+  <li *ngIf="!loading && !notes?.length" class="notes-empty">No notes.</li>
+</ul>

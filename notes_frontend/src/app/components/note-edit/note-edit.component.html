@@ -1,0 +1,25 @@
+<div class="note-edit-form">
+  <form [formGroup]="noteForm" (ngSubmit)="onSubmit()">
+    <label>
+      Title
+      <input formControlName="title" type="text" maxlength="200" />
+    </label>
+    <div class="invalid" *ngIf="noteForm.controls['title'].invalid && noteForm.controls['title'].touched">
+      Title is required.
+    </div>
+    <label>
+      Content
+      <textarea formControlName="content" rows="10" maxlength="10000"></textarea>
+    </label>
+    <div class="invalid" *ngIf="noteForm.controls['content'].invalid && noteForm.controls['content'].touched">
+      Content is required.
+    </div>
+    <div class="form-actions">
+      <button class="primary-btn" type="submit" [disabled]="noteForm.invalid || loading">
+        {{ isEdit ? 'Update' : 'Create' }} Note
+      </button>
+      <span *ngIf="loading" class="saving">Saving...</span>
+      <span *ngIf="error" class="error">{{ error }}</span>
+    </div>
+  </form>
+</div>

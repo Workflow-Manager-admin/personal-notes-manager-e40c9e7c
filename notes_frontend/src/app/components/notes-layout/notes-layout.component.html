@@ -1,0 +1,14 @@
+<div class="root-layout">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <span class="brand">Notes</span>
+      <button class="new-note-btn" routerLink="/notes/new">+ New</button>
+    </div>
+    <nav>
+      <app-notes-list class="notes-list"></app-notes-list>
+    </nav>
+  </aside>
+  <main class="main-panel">
+    <router-outlet></router-outlet>
+  </main>
+</div>

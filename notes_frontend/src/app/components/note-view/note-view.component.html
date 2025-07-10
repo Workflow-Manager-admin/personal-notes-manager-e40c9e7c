@@ -1,0 +1,15 @@
+<div *ngIf="loading" class="note-loading">Loading...</div>
+<div *ngIf="note && !loading" class="note-details">
+  <div class="note-details-toolbar">
+    <button (click)="editNote()" class="toolbar-btn">Edit</button>
+    <button (click)="deleteNote()" class="toolbar-btn delete">Delete</button>
+  </div>
+  <h2 class="note-title">{{ note.title }}</h2>
+  <p class="note-content">{{ note.content }}</p>
+  <div class="note-meta">
+    <span>Last updated: {{ note.updated_at | date:'short' }}</span>
+  </div>
+</div>
+<div *ngIf="!note && !loading" class="note-notfound">
+  Note not found.
+</div>

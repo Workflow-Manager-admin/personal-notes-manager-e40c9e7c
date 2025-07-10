@@ -1,1 +1,48 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global CSS resets and theme for light, modern note app */
+:root {
+  --primary: #1976d2;
+  --secondary: #424242;
+  --accent: #ffb300;
+  --bg: #fafbfc;
+  --text-main: #232628;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text-main);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+button, input, textarea {
+  font-family: inherit;
+}
+
+::-webkit-scrollbar {
+  background: transparent;
+  width: 8px;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d9dbe0;
+  border-radius: 8px;
+}
+
+@media (max-width: 800px) {
+  html, body {
+    font-size: 95%;
+  }
+}
